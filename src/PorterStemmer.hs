@@ -1,4 +1,4 @@
-module Stemmer
+module PorterStemmer
   (stem
   ) where
 

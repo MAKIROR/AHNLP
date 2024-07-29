@@ -1,10 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
+module PorterStemmerSpec where
 
 import Test.Hspec
-import PorterStemmer
+import PorterStemmer (stem)
 
-main :: IO ()
-main = hspec $ do
+spec :: Spec
+spec = do
   describe "Porter Stemmer" $ do
     it "correctly handles common suffixes" $ do
       stem "conditional" `shouldBe` "condition"
