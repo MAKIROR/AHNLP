@@ -21,3 +21,23 @@ The module exports the following functions:
 ```haskell
 tokenize :: String -> [String]
 ```
+
+<hr>
+
+# Stemmer
+
+This module provides an implementation of the Porter Stemming Algorithm, which reduces English words to their root forms. This is useful for natural language processing tasks such as text analysis and information retrieval.
+
+## Exported Functions
+
+The module exports the following function:
+
+- `stem`
+
+## Function Details
+
+### `stem`
+
+```haskell
+stem :: String -> String
+
