@@ -13,17 +13,8 @@ tokenize text = words text
 
 -- | Tokenize a string into sentences based on specified delimiters.
 tokenizeSentences :: String -> [String]
-tokenizeSentences text = filter (not . null) (map trim (splitOnDelimiters ".!?" text))
+tokenizeSentences text = map trim (tokenizeWithDelimiters ".!?" text)
   where
-    splitOnDelimiters :: [Char] -> String -> [String]
-    splitOnDelimiters delimiters s = go s
-      where
-        go [] = []
-        go xs =
-          let (token, rest) = break (`elem` delimiters) xs
-              rest' = dropWhile (`elem` delimiters) rest
-          in token : go rest'
-    
     trim = dropWhile (== ' ') . dropWhileEnd (== ' ')
 
 -- | Tokenize a string into segments based on a list of delimiters.
