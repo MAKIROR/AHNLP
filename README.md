@@ -24,7 +24,7 @@ tokenize :: String -> [String]
 
 <hr>
 
-# Stemmer
+# Porter Stemmer
 
 This module provides an implementation of the Porter Stemming Algorithm, which reduces English words to their root forms. This is useful for natural language processing tasks such as text analysis and information retrieval.
 
