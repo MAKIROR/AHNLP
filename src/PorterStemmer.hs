@@ -145,28 +145,31 @@ step3 word
 
 step4 :: String -> String
 step4 word
-    | (found, j) <- endsWith word "al", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ance", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ence", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "er", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ic", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "able", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ible", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ant", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ement", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ment", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ent", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ou", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ism", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ate", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "iti", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ous", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ive", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "ize", found && measure word j > 1 = apply word "" j
-    | (found, j) <- endsWith word "hood", found && measure word j > 1 = apply word "" j
+    | (found, j) <- endsWith word "al", found = applyIf word "" j
+    | (found, j) <- endsWith word "ance", found = applyIf word "" j
+    | (found, j) <- endsWith word "ence", found = applyIf word "" j
+    | (found, j) <- endsWith word "er", found = applyIf word "" j
+    | (found, j) <- endsWith word "ic", found = applyIf word "" j
+    | (found, j) <- endsWith word "able", found = applyIf word "" j
+    | (found, j) <- endsWith word "ible", found = applyIf word "" j
+    | (found, j) <- endsWith word "ant", found = applyIf word "" j
+    | (found, j) <- endsWith word "ement", found = applyIf word "" j
+    | (found, j) <- endsWith word "ment", found = applyIf word "" j
+    | (found, j) <- endsWith word "ent", found = applyIf word "" j
+    | (found, j) <- endsWith word "ou", found = applyIf word "" j
+    | (found, j) <- endsWith word "ism", found = applyIf word "" j
+    | (found, j) <- endsWith word "ate", found = applyIf word "" j
+    | (found, j) <- endsWith word "iti", found = applyIf word "" j
+    | (found, j) <- endsWith word "ous", found = applyIf word "" j
+    | (found, j) <- endsWith word "ive", found = applyIf word "" j
+    | (found, j) <- endsWith word "ize", found = applyIf word "" j
+    | (found, j) <- endsWith word "hood", found = applyIf word "" j
     | otherwise = word
   where
-    setTo w s j = take (j + 1) w ++ s
+    applyIf :: String -> String -> Int -> String
+    applyIf word suffix j
+        | measure word j > 1 = setTo word suffix j
+        | otherwise = word
 
 step5 :: String -> String
 step5 word

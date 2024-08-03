@@ -4,7 +4,7 @@ module Tokenization
   , tokenizeWithDelimiters
   ) where
 
-import Data.List (words, break, dropWhile, dropWhileEnd)
+import Data.List (words, dropWhile, dropWhileEnd)
 import Data.Char (isSpace)
 
 -- | Tokenize a string into words based on whitespace.
