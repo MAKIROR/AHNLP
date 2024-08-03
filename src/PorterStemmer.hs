@@ -62,6 +62,11 @@ apply :: String -> String -> Int -> String
 apply word newSuffix j =
     if measure word j > 0 then setTo word newSuffix j else word
 
+applyIf :: String -> String -> Int -> Int -> String
+applyIf word suffix j measure
+    | measure word j > measure = setTo word suffix j
+    | otherwise = word
+
 stem :: String -> String
 stem word
   | isExceptionalWord word = word
@@ -145,31 +150,26 @@ step3 word
 
 step4 :: String -> String
 step4 word
-    | (found, j) <- endsWith word "al", found = applyIf word "" j
-    | (found, j) <- endsWith word "ance", found = applyIf word "" j
-    | (found, j) <- endsWith word "ence", found = applyIf word "" j
-    | (found, j) <- endsWith word "er", found = applyIf word "" j
-    | (found, j) <- endsWith word "ic", found = applyIf word "" j
-    | (found, j) <- endsWith word "able", found = applyIf word "" j
-    | (found, j) <- endsWith word "ible", found = applyIf word "" j
-    | (found, j) <- endsWith word "ant", found = applyIf word "" j
-    | (found, j) <- endsWith word "ement", found = applyIf word "" j
-    | (found, j) <- endsWith word "ment", found = applyIf word "" j
-    | (found, j) <- endsWith word "ent", found = applyIf word "" j
-    | (found, j) <- endsWith word "ou", found = applyIf word "" j
-    | (found, j) <- endsWith word "ism", found = applyIf word "" j
-    | (found, j) <- endsWith word "ate", found = applyIf word "" j
-    | (found, j) <- endsWith word "iti", found = applyIf word "" j
-    | (found, j) <- endsWith word "ous", found = applyIf word "" j
-    | (found, j) <- endsWith word "ive", found = applyIf word "" j
-    | (found, j) <- endsWith word "ize", found = applyIf word "" j
-    | (found, j) <- endsWith word "hood", found = applyIf word "" j
+    | (found, j) <- endsWith word "al", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ance", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ence", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "er", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ic", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "able", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ible", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ant", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ement", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ment", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ent", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ou", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ism", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ate", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "iti", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ous", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ive", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "ize", found = applyIf word "" j 1
+    | (found, j) <- endsWith word "hood", found = applyIf word "" j 1
     | otherwise = word
-  where
-    applyIf :: String -> String -> Int -> String
-    applyIf word suffix j
-        | measure word j > 1 = setTo word suffix j
-        | otherwise = word
 
 step5 :: String -> String
 step5 word
