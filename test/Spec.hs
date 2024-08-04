@@ -7,6 +7,9 @@ main :: IO ()
 main = hspec $ do
   describe "Porter Stemmer" $ do
     it "correctly handles common suffixes" $ do
+      stem "hopping" `shouldBe` "hope"
+      stem "caving" `shouldBe` "cave"
+      
       stem "conditional" `shouldBe` "condition"
       stem "rational" `shouldBe` "ration"
       stem "valence" `shouldBe` "valenc"

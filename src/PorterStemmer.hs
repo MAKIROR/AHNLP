@@ -63,9 +63,8 @@ apply word newSuffix j =
     if measure word j > 0 then setTo word newSuffix j else word
 
 applyIf :: String -> String -> Int -> Int -> String
-applyIf word suffix j measure
-    | measure word j > measure = setTo word suffix j
-    | otherwise = word
+applyIf word newSuffix j m =
+    if measure word j > m then setTo word newSuffix j else word
 
 stem :: String -> String
 stem word
@@ -74,18 +73,14 @@ stem word
 
 step1a :: String -> String
 step1a word
-    | last word == 's' = handleS word
+    | (True, j) <- word `endsWith` "sses" = setTo word "ss" j
+    | (True, j) <- word `endsWith` "ies" = setTo word "i" j
+    | length word > 1 && last word == 's' && last (init word) /= 's' = init word
     | otherwise = word
-  where
-    handleS w
-        | (True, j) <- w `endsWith` "sses" = setTo w "ss" j
-        | (True, j) <- w `endsWith` "ies" = setTo w "i" j
-        | length w > 1 && last (init w) /= 's' = init w
-        | otherwise = w
 
 step1b :: String -> String
 step1b word
-    | (found, j) <- endsWith word "eed", found && measure word j > 0 = setTo word "ee" j
+    | (found, j) <- endsWith word "eed", found = apply word "ee" j
     | (found, j) <- endsWith word "ed", found && hasVowel (take (j + 1) word) j = step1b2 (take (j + 1) word)
     | (found, j) <- endsWith word "ing", found && hasVowel (take (j + 1) word) j = step1b2 (take (j + 1) word)
     | otherwise = word
@@ -95,12 +90,17 @@ step1b2 word
     | (found, j) <- endsWith word "at", found = setTo word "ate" j
     | (found, j) <- endsWith word "bl", found = setTo word "ble" j
     | (found, j) <- endsWith word "iz", found = setTo word "ize" j
-    | hasDoubleConsonant word (length word - 1) =
-        if last word `elem` "lsz"
-        then word
-        else init word
-    | measure word (length word - 1) == 1 && isCVC word (length word - 1) = word ++ "e"
-    | otherwise = word
+    | otherwise = applyCVC (handleDoubleConsonant word)
+  where
+    handleDoubleConsonant w
+        | hasDoubleConsonant w (length w - 1) =
+            if last w `elem` "lsz"
+            then w
+            else init w
+        | otherwise = w
+    applyCVC w
+        | measure w (length w - 1) == 1 && isCVC w (length w - 1) = w ++ "e"
+        | otherwise = w
 
 step1c :: String -> String
 step1c word

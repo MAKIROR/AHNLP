@@ -11,15 +11,6 @@ exceptionalWords = [
     "series", 
     "species",
     "bus",
-    "class",
-    "glass",
-    "kiss",
-    "miss",
-    "dress",
-    "loss",
-    "process",
-    "cross",
-    "address",
     "cosmos",
     "bias"
     ]
